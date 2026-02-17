@@ -1,23 +1,25 @@
+import 'dotenv/config';
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User, UserRole } from './users/entities/user.entity';
 
 async function createAdminUser() {
   // Create a simple data source for seeding
+  // Uses environment variables - update .env file with your database credentials
   const dataSource = new DataSource({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '4521',
-    database: 'my_web',
+    type: 'postgres' as any,
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT || '5432'),
+    username: process.env.DB_USERNAME || 'postgres',
+    password: process.env.DB_PASSWORD || 'password',
+    database: process.env.DB_DATABASE || 'trionex_db',
     entities: [User],
   });
 
   await dataSource.initialize();
 
-  const email = 'debadattajena552@gmail.com';
-  const plainPassword = 'debadatta2004';
+  const email = process.env.OWNER_EMAIL || 'debadattajena552@gmail.com';
+  const plainPassword = 'debadatta2004'; // Change this default password!
   
   // Check if user already exists
   const existingUser = await dataSource.getRepository(User).findOne({
