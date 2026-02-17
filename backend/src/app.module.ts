@@ -22,6 +22,9 @@ import { Testimonial } from "./testimonials/entities/testimonial.entity";
 import { Contact } from "./contact/entities/contact.entity";
 import { Feedback } from "./feedback/entities/feedback.entity";
 
+// Check if database is configured
+const isDbConfigured = () => !!(process.env.DATABASE_URL || process.env.DB_HOST);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -50,7 +53,7 @@ import { Feedback } from "./feedback/entities/feedback.entity";
     }),
 
     // Only connect to database if DB_HOST or DATABASE_URL is provided
-    ...(process.env.DATABASE_URL || process.env.DB_HOST
+    ...(isDbConfigured()
       ? [
           TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
@@ -85,12 +88,17 @@ import { Feedback } from "./feedback/entities/feedback.entity";
     }),
 
     AuthModule,
-    UsersModule,
-    ProjectsModule,
-    TestimonialsModule,
-    ContactModule,
-    StatsModule,
-    FeedbackModule,
+    // Only include database-dependent modules if DB is configured
+    ...(isDbConfigured()
+      ? [
+          UsersModule,
+          ProjectsModule,
+          TestimonialsModule,
+          ContactModule,
+          StatsModule,
+          FeedbackModule,
+        ]
+      : []),
   ],
   controllers: [],
   providers: [],
