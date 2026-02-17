@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "About AI Solutions Company",
+    "subtitle": "Leading AI and software development company",
+    "description": "Transforming businesses through innovative technology solutions and cutting-edge AI development"
+  },
+  "mission": {
+    "title": "Our Mission",
+    "content": "To empower businesses with intelligent solutions that drive growth, efficiency, and competitive advantage through innovative AI and software technologies."
+  },
+  "vision": {
+    "title": "Our Vision",
+    "content": "To be the global leader in AI-driven business transformation, making advanced technology accessible and impactful for organizations of all sizes."
+  },
+  "values": {
+    "title": "Our Values",
+    "items": [
+      {
+        "title": "Innovation",
+        "description": "Constantly pushing boundaries with cutting-edge solutions"
+      },
+      {
+        "title": "Excellence",
+        "description": "Delivering high-quality, reliable solutions every time"
+      },
+      {
+        "title": "Collaboration",
+        "description": "Working closely with clients as trusted partners"
+      },
+      {
+        "title": "Integrity",
+        "description": "Maintaining highest ethical standards in all endeavors"
+      }
+    ]
+  },
+  "team": {
+    "title": "Leadership Team",
+    "members": [
+      {
+        "name": "John Smith",
+        "position": "CEO & Founder",
+        "bio": "20+ years in AI and software development"
+      },
+      {
+        "name": "Sarah Johnson",
+        "position": "CTO",
+        "bio": "Former Google AI researcher with PhD in Computer Science"
+      }
+    ]
+  }
+}

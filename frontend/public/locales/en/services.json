@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive AI and software solutions",
+    "description": "From AI development to enterprise software, we deliver cutting-edge solutions for modern businesses"
+  },
+  "categories": {
+    "ai": {
+      "title": "AI Solutions",
+      "description": "Custom AI models, machine learning, and intelligent automation",
+      "features": ["Machine Learning", "Natural Language Processing", "Computer Vision", "Predictive Analytics"]
+    },
+    "web": {
+      "title": "Web Development",
+      "description": "Modern web applications with latest technologies",
+      "features": ["React/Next.js", "Node.js", "Cloud Deployment", "API Development"]
+    },
+    "mobile": {
+      "title": "Mobile Applications",
+      "description": "Native and cross-platform mobile solutions",
+      "features": ["iOS Development", "Android Development", "Cross-Platform", "App Store Optimization"]
+    },
+    "cloud": {
+      "title": "Cloud Services",
+      "description": "Scalable cloud infrastructure and migration services",
+      "features": ["AWS/Azure", "Cloud Migration", "DevOps", "Monitoring"]
+    }
+  },
+  "process": {
+    "title": "Our Process",
+    "steps": [
+      {
+        "title": "Discovery",
+        "description": "Understanding your requirements and goals"
+      },
+      {
+        "title": "Design",
+        "description": "Creating optimal technical solutions"
+      },
+      {
+        "title": "Development",
+        "description": "Building robust and scalable solutions"
+      },
+      {
+        "title": "Deployment",
+        "description": "Seamless launch and ongoing support"
+      }
+    ]
+  }
+}

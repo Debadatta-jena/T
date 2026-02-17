@@ -1,0 +1,48 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "solutions": "Solutions",
+    "about": "About",
+    "blog": "Blog",
+    "careers": "Careers",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookiePolicy": "Cookie Policy"
+  },
+  "common": {
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "company": {
+    "name": "Trionex Technologies",
+    "tagline": "Transforming Businesses with AI-Powered Solutions",
+    "description": "Leading provider of enterprise software, AI solutions, and cloud services for global businesses."
+  },
+  "footer": {
+    "description": "Empowering businesses with cutting-edge technology solutions worldwide.",
+    "copyright": "© {{year}} Trionex Technologies. All rights reserved.",
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for the latest insights and updates.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    }
+  },
+  "seo": {
+    "title": "Trionex Technologies - Enterprise IT Solutions",
+    "description": "Leading provider of IT services, software development, AI & cloud solutions for businesses worldwide.",
+    "keywords": "IT services, software development, AI solutions, cloud computing, enterprise software, digital transformation"
+  }
+}

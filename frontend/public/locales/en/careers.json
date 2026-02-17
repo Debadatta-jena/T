@@ -1,0 +1,53 @@
+{
+  "hero": {
+    "title": "Join Our Team",
+    "subtitle": "Shape the future of AI and software development",
+    "description": "Be part of a dynamic team that's transforming industries through innovative technology solutions"
+  },
+  "benefits": {
+    "title": "Why Join Us?",
+    "items": [
+      {
+        "title": "Innovation",
+        "description": "Work with cutting-edge AI and software technologies"
+      },
+      {
+        "title": "Growth",
+        "description": "Continuous learning and career development opportunities"
+      },
+      {
+        "title": "Impact",
+        "description": "Make a real difference in how businesses operate"
+      },
+      {
+        "title": "Culture",
+        "description": "Collaborative and inclusive work environment"
+      }
+    ]
+  },
+  "openings": {
+    "title": "Open Positions",
+    "noPositions": "No open positions at the moment",
+    "apply": "Apply Now",
+    "viewDetails": "View Details"
+  },
+  "culture": {
+    "title": "Our Culture",
+    "description": "We foster a culture of innovation, collaboration, and continuous learning"
+  },
+  "application": {
+    "title": "Apply for this position",
+    "instructions": "Please fill out the form below to apply for this position",
+    "fields": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "experience": "Years of Experience",
+      "portfolio": "Portfolio/Resume URL",
+      "coverLetter": "Cover Letter"
+    },
+    "submit": "Submit Application",
+    "success": "Application submitted successfully!",
+    "successMessage": "Thank you for your interest. We'll review your application and get back to you soon."
+  }
+}

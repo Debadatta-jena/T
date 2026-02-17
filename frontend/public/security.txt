@@ -1,0 +1,41 @@
+# Security Policy for Trionex Technologies
+
+## Reporting Security Vulnerabilities
+
+If you discover a security vulnerability, please report it responsibly:
+
+**Email:** debadattajena552@gmail.com
+
+We appreciate your help keeping our website and services secure. We will aim to acknowledge your report within 24-48 hours.
+
+## Scope
+
+This policy applies to:
+- Trionex Technologies website (trionex.tech)
+- All web applications and services provided by Trionex Technologies
+
+## What to Include in Your Report
+
+Please include:
+1. Description of the vulnerability
+2. Steps to reproduce the issue
+3. Potential impact of the vulnerability
+4. Any suggested fixes (optional)
+
+## What You Can Expect From Us
+
+- Acknowledgment of your report within 24-48 hours
+- Regular updates on our progress
+- Credit in our security hall of fame (if desired)
+
+## Out of Scope
+
+The following are not eligible for bug bounties:
+- Reports from third-party services
+- Issues related to outdated browsers
+- Social engineering attacks
+- Physical security issues
+
+---
+
+Last Updated: February 2026

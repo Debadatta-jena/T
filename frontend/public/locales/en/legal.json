@@ -1,0 +1,71 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: [Date]",
+    "sections": {
+      "introduction": {
+        "title": "Introduction",
+        "content": "This Privacy Policy describes how AI Solutions Company collects, uses, and protects your personal information."
+      },
+      "information": {
+        "title": "Information We Collect",
+        "content": "We collect information you provide directly, information from your use of our services, and information from third-party sources."
+      },
+      "usage": {
+        "title": "How We Use Your Information",
+        "content": "We use the information to provide services, communicate with you, improve our offerings, and comply with legal obligations."
+      },
+      "sharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell your personal information. We may share it in limited circumstances as described in this policy."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We implement appropriate technical and organizational measures to protect your personal information."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You have rights regarding your personal information, including access, correction, and deletion."
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have questions about this Privacy Policy, please contact us at privacy@ai-solutions.com"
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: [Date]",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By accessing our services, you agree to be bound by these Terms of Service."
+    },
+    "services": {
+      "title": "Services",
+      "content": "We provide AI and software development services as described on our website."
+    },
+    "user": {
+      "title": "User Responsibilities",
+      "content": "You agree to use our services lawfully and in accordance with these terms."
+    },
+    "intellectual": {
+      "title": "Intellectual Property",
+      "content": "All content and services are protected by intellectual property laws."
+    }
+  },
+  "accessibility": {
+    "title": "Accessibility Statement",
+    "commitment": {
+      "title": "Our Commitment",
+      "content": "We are committed to making our website accessible to all users, including those with disabilities."
+    },
+    "standards": {
+      "title": "Accessibility Standards",
+      "content": "Our website aims to conform to WCAG 2.1 Level AA accessibility guidelines."
+    },
+    "features": {
+      "title": "Accessibility Features",
+      "content": "We implement various accessibility features including keyboard navigation, screen reader support, and high contrast options."
+    }
+  }
+}

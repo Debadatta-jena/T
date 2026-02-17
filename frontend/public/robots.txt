@@ -1,0 +1,52 @@
+# Trionex Technologies - Robots.txt
+# https://trionex.tech
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://trionex.tech/sitemap.xml
+
+# Block sensitive areas
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /*?*
+
+# Allow specific public pages
+Allow: /$
+Allow: /about
+Allow: /services
+Allow: /projects
+Allow: /portfolio
+Allow: /case-studies
+Allow: /testimonials
+Allow: /pricing
+Allow: /contact
+Allow: /industries
+Allow: /privacy
+Allow: /terms
+Allow: /cookie-policy
+
+# Crawl delay (be nice to servers)
+Crawl-delay: 1
+
+# Googlebot specific rules
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+
+# Bingbot specific rules
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/

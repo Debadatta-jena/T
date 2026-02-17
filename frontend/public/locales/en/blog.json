@@ -1,0 +1,39 @@
+{
+  "hero": {
+    "title": "Insights & Blog",
+    "subtitle": "Latest insights from our experts",
+    "description": "Stay updated with the latest trends in AI, software development, and technology innovation"
+  },
+  "categories": {
+    "ai": "Artificial Intelligence",
+    "development": "Software Development",
+    "cloud": "Cloud Computing",
+    "innovation": "Innovation",
+    "case-studies": "Case Studies"
+  },
+  "featured": {
+    "title": "Featured Articles",
+    "readMore": "Read More"
+  },
+  "newsletter": {
+    "title": "Stay Updated",
+    "description": "Get the latest insights delivered to your inbox",
+    "placeholder": "Enter your email",
+    "subscribe": "Subscribe"
+  },
+  "search": {
+    "placeholder": "Search articles...",
+    "noResults": "No articles found",
+    "results": "results found"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page"
+  },
+  "share": {
+    "title": "Share this article",
+    "copy": "Copy Link",
+    "copied": "Link copied!"
+  }
+}

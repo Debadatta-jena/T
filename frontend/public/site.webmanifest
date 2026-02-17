@@ -1,0 +1,94 @@
+{
+  "name": "AI Solutions Company",
+  "short_name": "AI Solutions",
+  "description": "Professional AI & Software Solutions company delivering innovative digital experiences",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2563eb",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "technology", "productivity"],
+  "icons": [
+    {
+      "src": "/images/logo-icon.svg",
+      "sizes": "any",
+      "type": "image/svg",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple-touch-icon"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with our team",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/images/logo-icon.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Our Services",
+      "short_name": "Services",
+      "description": "Explore our AI and software solutions",
+      "url": "/services",
+      "icons": [
+        {
+          "src": "/images/logo-icon.svg",
+          "sizes": "any"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/splash-screen.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop Home"
+    },
+    {
+      "src": "/images/splash-screen-640x1136.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile Home"
+    }
+  ],
+  "splash_screen": {
+    "src": "/images/splash-screen.png",
+    "sizes": "1920x1080",
+    "type": "image/svg+xml",
+    "form_factor": "wide",
+    "label": "Desktop Splash"
+  },
+  "splash_screen_small": {
+    "src": "/images/splash-screen-640x1136.png",
+    "sizes": "640x1136",
+    "type": "image/svg+xml",
+    "form_factor": "narrow",
+    "label": "Mobile Splash"
+  }
+}

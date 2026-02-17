@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "title": "AI Solutions Company",
+    "subtitle": "Professional AI & Software Solutions",
+    "description": "Transforming businesses with cutting-edge AI and software development services",
+    "cta": {
+      "primary": "Get Started",
+      "secondary": "Learn More"
+    }
+  },
+  "features": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive AI and software solutions",
+    "items": {
+      "ai": {
+        "title": "AI Solutions",
+        "description": "Custom AI models and machine learning solutions"
+      },
+      "web": {
+        "title": "Web Development",
+        "description": "Modern web applications and platforms"
+      },
+      "mobile": {
+        "title": "Mobile Apps",
+        "description": "Native and cross-platform mobile solutions"
+      }
+    }
+  },
+  "stats": {
+    "projects": "500+ Projects",
+    "clients": "200+ Clients",
+    "experience": "10+ Years",
+    "satisfaction": "98% Satisfaction"
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "items": [
+      {
+        "content": "Outstanding service and innovative solutions",
+        "author": "John Smith",
+        "company": "Tech Corp"
+      }
+    ]
+  }
+}

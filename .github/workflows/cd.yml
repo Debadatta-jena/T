@@ -1,0 +1,195 @@
+name: CD (Deploy to Oracle Cloud)
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  NODE_VERSION: '18'
+  ORACLE_CLOUD_REGION: '${{ secrets.ORACLE_CLOUD_REGION }}'
+  ORACLE_COMPARTMENT_ID: '${{ secrets.ORACLE_COMPARTMENT_ID }}'
+
+jobs:
+  # ===========================================
+  # PRE-DEPLOYMENT CHECKS
+  # ===========================================
+  pre-deploy:
+    name: Pre-deployment Checks
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check if should deploy
+        id: check
+        run: |
+          echo "should_deploy=true" >> $GITHUB_OUTPUT
+
+      - name: Verify secrets configured
+        if: env.ORACLE_CLOUD_REGION == ''
+        run: |
+          echo "⚠️ Oracle Cloud secrets not configured. Skipping deployment."
+          echo "Configure ORACLE_CLOUD_REGION, ORACLE_COMPARTMENT_ID, and SSH_KEY in GitHub secrets."
+
+  # ===========================================
+  # FRONTEND BUILD
+  # ===========================================
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    needs: pre-deploy
+    if: needs.pre-deploy.outputs.should_deploy == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Build Next.js
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/out
+          retention-days: 7
+
+  # ===========================================
+  # BACKEND BUILD
+  # ===========================================
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    needs: pre-deploy
+    if: needs.pre-deploy.outputs.should_deploy == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Build NestJS
+        run: |
+          cd backend
+          npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-build
+          path: backend/dist
+          retention-days: 7
+
+  # ===========================================
+  # DEPLOY TO ORACLE CLOUD
+  # ===========================================
+  deploy-oracle-cloud:
+    name: Deploy to Oracle Cloud
+    runs-on: ubuntu-latest
+    needs: [build-frontend, build-backend]
+    if: needs.pre-deploy.outputs.should_deploy == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download frontend artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend-build
+
+      - name: Download backend artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-build
+          path: backend-build
+
+      - name: Setup SSH key for Oracle Cloud
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.ORACLE_SSH_KEY }}
+
+      - name: Add Oracle Cloud known host
+        run: |
+          mkdir -p ~/.ssh
+          echo "169.254.169.254,localhost" >> ~/.ssh/known_hosts
+
+      - name: Deploy via SCP
+        env:
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+          ORACLE_USER: ${{ secrets.ORACLE_USER }}
+        run: |
+          # Create deployment directory
+          ssh -o StrictHostKeyChecking=no $ORACLE_USER@$ORACLE_HOST "mkdir -p /var/www/trionex-backend /var/www/trionex-frontend"
+          
+          # Upload backend
+          scp -r backend-build/* $ORACLE_USER@$ORACLE_HOST:/var/www/trionex-backend/
+          
+          # Upload frontend
+          scp -r frontend-build/* $ORACLE_USER@$ORACLE_HOST:/var/www/trionex-frontend/
+
+      - name: Restart Backend Service
+        env:
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+          ORACLE_USER: ${{ secrets.ORACLE_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $ORACLE_USER@$ORACLE_HOST "cd /var/www/trionex-backend && pm2 restart all || pm2 start dist/main.js --name trionex-backend"
+
+      - name: Notify Deployment Complete
+        run: |
+          echo "✅ Deployment to Oracle Cloud completed!"
+          echo "Backend: https://${{ secrets.ORACLE_HOST }}:3001"
+          echo "Frontend: https://${{ secrets.ORACLE_HOST }}"
+
+  # ===========================================
+  # DEPLOYMENT STATUS
+  # ===========================================
+  deployment-status:
+    name: Deployment Status
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, deploy-oracle-cloud]
+    if: always()
+    steps:
+      - name: Check deployment status
+        run: |
+          if [ "${{ needs.deploy-oracle-cloud.result }}" == "success" ]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed"
+            exit 1
+          fi

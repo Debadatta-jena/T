@@ -1,0 +1,260 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Run linting
+        run: |
+          cd frontend
+          npm run lint
+
+      - name: Run type checking
+        run: |
+          cd frontend
+          npm run type-check
+
+      - name: Run unit tests
+        run: |
+          cd frontend
+          npm run test:unit
+
+      - name: Run unit tests with coverage
+        run: |
+          cd frontend
+          npm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./frontend/coverage/lcov.info
+          directory: ./frontend/coverage
+          flags: frontend
+          name: frontend-coverage
+
+      - name: Build application
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Run E2E tests
+        run: |
+          cd frontend
+          npm run test:e2e
+
+      - name: Run Lighthouse CI
+        run: |
+          cd frontend
+          npm install -g @lhci/cli@0.12.x
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Run linting
+        run: |
+          cd backend
+          npm run lint
+
+      - name: Run unit tests
+        run: |
+          cd backend
+          npm run test
+
+      - name: Run integration tests
+        run: |
+          cd backend
+          npm run test:e2e
+
+      - name: Run tests with coverage
+        run: |
+          cd backend
+          npm run test:cov
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/coverage/lcov.info
+          directory: ./backend/coverage
+          flags: backend
+          name: backend-coverage
+
+      - name: Build application
+        run: |
+          cd backend
+          npm run build
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Run npm audit
+        run: |
+          cd frontend && npm audit --audit-level high
+          cd ../backend && npm audit --audit-level high
+
+  deploy-staging:
+    needs: [test-frontend, test-backend, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Netlify (Staging)
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=frontend/.next --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STAGING }}
+
+  deploy-production:
+    needs: [test-frontend, test-backend, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Netlify (Production)
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=frontend/.next --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Deploy backend to AWS
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          script: |
+            cd /var/www/ai-solutions
+            git pull origin main
+            cd backend
+            npm ci --production
+            npm run build
+            pm2 restart ai-solutions-backend
+
+  performance-monitoring:
+    needs: deploy-production
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run performance tests
+        run: |
+          cd frontend
+          npm install -g @lhci/cli@0.12.x
+          lhci autorun --config=lighthouserc.prod.js
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Run Web Vitals monitoring
+        run: |
+          cd frontend
+          npm run test:performance
+
+  notify:
+    needs: [deploy-production, performance-monitoring]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Notify Slack on success
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          channel: '#deployments'
+          text: '🚀 Production deployment successful!'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          channel: '#deployments'
+          text: '❌ Production deployment failed!'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
