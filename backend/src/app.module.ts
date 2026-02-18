@@ -15,6 +15,7 @@ import { TestimonialsModule } from "./testimonials/testimonials.module";
 import { ContactModule } from "./contact/contact.module";
 import { StatsModule } from "./stats/stats.module";
 import { FeedbackModule } from "./feedback/feedback.module";
+import { HealthModule } from "./health/health.module";
 
 import { User } from "./users/entities/user.entity";
 import { Project } from "./projects/entities/project.entity";
@@ -22,8 +23,9 @@ import { Testimonial } from "./testimonials/entities/testimonial.entity";
 import { Contact } from "./contact/entities/contact.entity";
 import { Feedback } from "./feedback/entities/feedback.entity";
 
-// Check if database is configured
-const isDbConfigured = () => !!(process.env.DATABASE_URL || process.env.DB_HOST);
+// Import security modules
+import { CsrfService } from "./common/services/csrf.service";
+import { SecurityMiddleware } from "./common/middleware/security.middleware";
 
 @Module({
   imports: [
@@ -52,29 +54,24 @@ const isDbConfigured = () => !!(process.env.DATABASE_URL || process.env.DB_HOST)
       inject: [ConfigService],
     }),
 
-    // Only connect to database if DB_HOST or DATABASE_URL is provided
-    ...(isDbConfigured()
-      ? [
-          TypeOrmModule.forRootAsync({
-            imports: [ConfigModule],
-            useFactory: (configService: ConfigService) => ({
-              type: "postgres",
-              url: configService.get("DATABASE_URL"),
-              host: configService.get("DB_HOST") || "localhost",
-              port: +(configService.get("DB_PORT") || "5432"),
-              username: configService.get("DB_USERNAME") || "postgres",
-              password: configService.get("DB_PASSWORD") || "password",
-              database: configService.get("DB_DATABASE") || "trionex_db",
-              entities: [User, Project, Testimonial, Contact, Feedback],
-              synchronize: configService.get("NODE_ENV") === "development",
-              logging: configService.get("NODE_ENV") === "development",
-              migrations: ["dist/migrations/*.js"],
-              migrationsRun: true,
-            }),
-            inject: [ConfigService],
-          }),
-        ]
-      : []),
+    // MySQL Database Configuration
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: "mysql",
+        host: configService.get("DB_HOST") || "localhost",
+        port: +(configService.get("DB_PORT") || 3306),
+        username: configService.get("DB_USERNAME") || "root",
+        password: configService.get("DB_PASSWORD") || "password",
+        database: configService.get("DB_DATABASE") || "my_web",
+        entities: [User, Project, Testimonial, Contact, Feedback],
+        synchronize: configService.get("NODE_ENV") === "development",
+        logging: configService.get("NODE_ENV") === "development",
+        migrations: ["dist/migrations/*.js"],
+        migrationsRun: true,
+      }),
+      inject: [ConfigService],
+    }),
 
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -88,19 +85,18 @@ const isDbConfigured = () => !!(process.env.DATABASE_URL || process.env.DB_HOST)
     }),
 
     AuthModule,
-    // Only include database-dependent modules if DB is configured
-    ...(isDbConfigured()
-      ? [
-          UsersModule,
-          ProjectsModule,
-          TestimonialsModule,
-          ContactModule,
-          StatsModule,
-          FeedbackModule,
-        ]
-      : []),
+    UsersModule,
+    ProjectsModule,
+    TestimonialsModule,
+    ContactModule,
+    StatsModule,
+    FeedbackModule,
+    HealthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    CsrfService,
+    SecurityMiddleware,
+  ],
 })
 export class AppModule {}

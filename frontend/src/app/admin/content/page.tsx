@@ -388,9 +388,12 @@ function ContentDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {mediaAssets.map((asset) => (
                   <Card key={asset.id} className="overflow-hidden">
-                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
                     <div className="aspect-square bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                      {asset.type === 'image' && <Image className="h-12 w-12 text-gray-400" aria-hidden="true" />}
+                      {asset.type === 'image' && (
+                        <span title={asset.name} role="img" aria-label={asset.name}>
+                          <Image className="h-12 w-12 text-gray-400" aria-hidden="true" />
+                        </span>
+                      )}
                       {asset.type === 'video' && <Video className="h-12 w-12 text-gray-400" aria-hidden="true" />}
                       {asset.type === 'file' && <File className="h-12 w-12 text-gray-400" aria-hidden="true" />}
                     </div>

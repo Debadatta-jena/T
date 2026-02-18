@@ -12,10 +12,12 @@ describe("AuthController", () => {
   const mockAuthService = {
     validateUser: jest.fn(),
     login: jest.fn(),
+    validateAndLogin: jest.fn(),
     refreshToken: jest.fn(),
     logout: jest.fn(),
     register: jest.fn(),
     getProfile: jest.fn(),
+    generateCSRFToken: jest.fn().mockReturnValue('mock-csrf-token'),
   };
 
   beforeEach(async () => {
@@ -56,17 +58,16 @@ describe("AuthController", () => {
         },
       };
 
-      mockAuthService.validateUser.mockResolvedValue(expectedResponse.user);
-      mockAuthService.login.mockResolvedValue(expectedResponse);
+      mockAuthService.validateAndLogin.mockResolvedValue(expectedResponse);
 
-      const result = await controller.login(loginDto);
+      const mockResponse = { session: {} };
+      const result = await controller.login(loginDto, mockResponse);
 
       expect(result).toEqual(expectedResponse);
-      expect(authService.validateUser).toHaveBeenCalledWith(
+      expect(authService.validateAndLogin).toHaveBeenCalledWith(
         loginDto.email,
         loginDto.password,
       );
-      expect(authService.login).toHaveBeenCalledWith(expectedResponse.user);
     });
 
     it("should throw UnauthorizedException on invalid credentials", async () => {
@@ -75,11 +76,11 @@ describe("AuthController", () => {
         password: "wrongpassword",
       };
 
-      mockAuthService.validateUser.mockRejectedValue(
+      mockAuthService.validateAndLogin.mockRejectedValue(
         new Error("Invalid credentials"),
       );
 
-      await expect(controller.login(loginDto)).rejects.toThrow(
+      await expect(controller.login(loginDto, { session: {} })).rejects.toThrow(
         "Invalid credentials",
       );
     });
@@ -129,7 +130,8 @@ describe("AuthController", () => {
 
       mockAuthService.refreshToken.mockResolvedValue(expectedResponse);
 
-      const result = await controller.refreshToken(refreshTokenDto);
+      const mockRequest = { cookies: { refreshToken: 'valid-refresh-token' } };
+      const result = await controller.refreshToken(refreshTokenDto, mockRequest);
 
       expect(result).toEqual(expectedResponse);
       expect(authService.refreshToken).toHaveBeenCalledWith(
@@ -146,7 +148,7 @@ describe("AuthController", () => {
         new Error("Invalid token"),
       );
 
-      await expect(controller.refreshToken(refreshTokenDto)).rejects.toThrow(
+      await expect(controller.refreshToken(refreshTokenDto, { cookies: { refreshToken: 'invalid-refresh-token' } })).rejects.toThrow(
         "Invalid token",
       );
     });
@@ -157,10 +159,11 @@ describe("AuthController", () => {
       const mockRequest = {
         user: { sub: "1" },
       };
-
+      const mockResponse = { session: {}, clearCookie: jest.fn() };
+      
       mockAuthService.logout.mockResolvedValue(undefined);
-
-      const result = await controller.logout(mockRequest);
+      
+      const result = await controller.logout(mockRequest, mockResponse);
 
       expect(result).toEqual({ message: "Logged out successfully" });
       expect(authService.logout).toHaveBeenCalledWith("1");

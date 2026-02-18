@@ -29,7 +29,7 @@ export class TestimonialsService {
       });
 
       return await this.testimonialRepository.save(testimonial);
-    } catch (error) {
+    } catch (error: any) {
       throw new BadRequestException(
         "Failed to create testimonial: " + error.message,
       );
@@ -46,7 +46,6 @@ export class TestimonialsService {
 
     const queryBuilder = this.testimonialRepository
       .createQueryBuilder("testimonial")
-      .leftJoinAndSelect("testimonial.project", "project")
       .leftJoinAndSelect("testimonial.approvedBy", "approvedBy");
 
     if (status) {
@@ -78,7 +77,7 @@ export class TestimonialsService {
     return await this.testimonialRepository.find({
       where: { isVisible: true, status: "approved" },
       order: { isFeatured: "DESC", createdAt: "DESC" },
-      relations: ["project"],
+      relations: ["approvedBy"],
     });
   }
 
@@ -86,7 +85,7 @@ export class TestimonialsService {
     return await this.testimonialRepository.find({
       where: { isFeatured: true, isVisible: true, status: "approved" },
       order: { createdAt: "DESC" },
-      relations: ["project"],
+      relations: ["approvedBy"],
       take: 6,
     });
   }
@@ -94,7 +93,6 @@ export class TestimonialsService {
   async findByCategory(category: string): Promise<Testimonial[]> {
     return await this.testimonialRepository
       .createQueryBuilder("testimonial")
-      .leftJoinAndSelect("testimonial.project", "project")
       .where("testimonial.serviceCategory = :category", { category })
       .andWhere("testimonial.isVisible = :isVisible", { isVisible: true })
       .andWhere("testimonial.status = :status", { status: "approved" })
@@ -106,7 +104,7 @@ export class TestimonialsService {
   async findOne(id: string): Promise<Testimonial> {
     const testimonial = await this.testimonialRepository.findOne({
       where: { id },
-      relations: ["project", "approvedBy"],
+      relations: ["approvedBy"],
     });
 
     if (!testimonial) {
@@ -128,7 +126,7 @@ export class TestimonialsService {
         updateTestimonialDto,
       );
       return await this.testimonialRepository.save(updatedTestimonial);
-    } catch (error) {
+    } catch (error: any) {
       throw new BadRequestException(
         "Failed to update testimonial: " + error.message,
       );

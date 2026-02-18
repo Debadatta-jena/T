@@ -67,7 +67,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ isVisible, onComplete }) =>
             }}
           >
             <img
-              src="/images/splash_screen.png"
+              src="/images/splash-screen-640x1136.png"
               alt="Trionex Technologies"
               className="w-64 h-64 md:w-80 md:h-80 object-contain"
               onError={(e) => {

@@ -38,7 +38,12 @@ export class ContactService {
     const emailPass = this.configService.get("EMAIL_PASS");
 
     // Check if email is configured (not placeholder)
-    if (!emailUser || !emailPass || emailPass === "your-app-password" || emailUser === "your-email@gmail.com") {
+    if (
+      !emailUser ||
+      !emailPass ||
+      emailPass === "your-app-password" ||
+      emailUser === "your-email@gmail.com"
+    ) {
       console.log("📧 Email not configured, skipping notification");
       return;
     }

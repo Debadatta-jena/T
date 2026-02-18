@@ -45,7 +45,7 @@ export function CompanyStats() {
 
   // Fetch user count from backend
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/users/count`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/count`)
       .then(res => res.json())
       .then(data => {
         if (data.count !== undefined) {

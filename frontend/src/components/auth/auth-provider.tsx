@@ -39,22 +39,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  // Check for existing token on load
+  // Check for existing session on load
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('token');
-      const userData = localStorage.getItem('user');
-      
-      if (token && userData) {
-        try {
-          const parsedUser = JSON.parse(userData);
-          setUser(parsedUser);
-        } catch (e) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
+    const checkAuth = async () => {
+      try {
+        // Check if user is authenticated by calling profile endpoint
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/profile`, {
+          credentials: 'include', // Include cookies
+        });
+        
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
         }
+      } catch (e) {
+        console.error('Auth check failed:', e);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     
     checkAuth();
@@ -63,9 +65,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/auth/login`, {
+      // Get CSRF token first
+      const csrfResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/csrf-token`, {
+        credentials: 'include',
+      });
+      const { csrfToken } = await csrfResponse.json();
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
+        },
+        credentials: 'include', // Include cookies
         body: JSON.stringify({ email, password }),
       });
 
@@ -75,11 +87,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Store token and user
-      localStorage.setItem('token', data.accessToken);
-      localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
-      
       router.push('/dashboard');
     } catch (error) {
       throw error;
@@ -92,22 +100,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(true);
     try {
       // Call backend logout endpoint
-      const token = localStorage.getItem('token');
-      if (token) {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/auth/logout`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-        });
-      }
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/logout`, {
+        method: 'POST',
+        credentials: 'include',
+      });
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      // Clear local storage regardless of API call result
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      // Clear user state
       setUser(null);
       router.push('/');
     }

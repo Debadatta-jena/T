@@ -37,7 +37,7 @@ export class User {
   })
   role: UserRole;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   refreshToken: string;
 
   @ApiProperty({ description: "User phone number" })

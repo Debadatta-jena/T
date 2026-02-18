@@ -5,6 +5,9 @@ import { ConfigService } from "@nestjs/config";
 import { AppModule } from "./app.module";
 import { WINSTON_MODULE_NEST_PROVIDER } from "nest-winston";
 import helmet from "helmet";
+import * as session from 'express-session';
+import { SecurityMiddleware } from "./common/middleware/security.middleware";
+import "./common/types/session.types";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
@@ -26,6 +29,24 @@ async function bootstrap() {
       },
     }),
   );
+
+  // Session configuration for CSRF protection
+  app.use(
+    session({
+      secret: configService.get('SESSION_SECRET') || 'fallback-session-secret-change-in-production',
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      },
+    }),
+  );
+
+  // Custom security middleware
+  app.use(new SecurityMiddleware().use);
 
   // Compression
   // Compression disabled
@@ -51,7 +72,7 @@ async function bootstrap() {
 
   // API prefix
   const apiPrefix = configService.get("API_PREFIX") || "api/v1";
-  app.setGlobalPrefix(apiPrefix);
+  app.setGlobalPrefix('api/v1');
 
   // Swagger documentation
   if (configService.get("NODE_ENV") !== "production") {

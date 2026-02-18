@@ -32,7 +32,7 @@ export default function ProfilePage() {
         setUser(JSON.parse(storedUser));
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/auth/profile`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

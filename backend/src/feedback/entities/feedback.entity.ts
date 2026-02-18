@@ -4,11 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Feedback {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -20,10 +20,10 @@ export class Feedback {
   @Column({ nullable: true })
   phone: string;
 
-  @Column('text')
+  @Column("text")
   message: string;
 
-  @Column({ default: 'pending' })
+  @Column({ default: "pending" })
   status: string;
 
   @Column({ default: false })

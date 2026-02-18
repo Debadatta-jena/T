@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Feedback } from './entities/feedback.entity';
-import { CreateFeedbackDto } from './dto/create-feedback.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Feedback } from "./entities/feedback.entity";
+import { CreateFeedbackDto } from "./dto/create-feedback.dto";
 
 @Injectable()
 export class FeedbackService {
@@ -18,7 +18,7 @@ export class FeedbackService {
 
   async findAll(): Promise<Feedback[]> {
     return this.feedbackRepository.find({
-      order: { createdAt: 'DESC' },
+      order: { createdAt: "DESC" },
     });
   }
 
@@ -49,9 +49,15 @@ export class FeedbackService {
 
   async getStats(): Promise<any> {
     const total = await this.feedbackRepository.count();
-    const pending = await this.feedbackRepository.count({ where: { status: 'pending' } });
-    const reviewed = await this.feedbackRepository.count({ where: { status: 'reviewed' } });
-    const resolved = await this.feedbackRepository.count({ where: { status: 'resolved' } });
+    const pending = await this.feedbackRepository.count({
+      where: { status: "pending" },
+    });
+    const reviewed = await this.feedbackRepository.count({
+      where: { status: "reviewed" },
+    });
+    const resolved = await this.feedbackRepository.count({
+      where: { status: "resolved" },
+    });
 
     return { total, pending, reviewed, resolved };
   }

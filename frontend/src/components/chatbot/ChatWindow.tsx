@@ -56,7 +56,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ isOpen, onClose }) => {
     if (isOpen && conversation.messages.length === 0) {
       initializeConversation()
     }
-  }, [isOpen])
+  }, [isOpen, conversation.messages.length])
 
   const initializeConversation = async () => {
     // Use time-based greeting for more human-like experience

@@ -1,0 +1,53 @@
+services:
+  # Frontend Service (Next.js)
+  - type: web
+    name: trionex-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/.next
+    domains:
+      - trionex.onrender.com
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://trionex-backend.onrender.com
+      - key: NEXT_PUBLIC_APP_NAME
+        value: Trionex Technologies
+      - key: NEXT_PUBLIC_APP_URL
+        value: https://trionex.onrender.com
+
+  # Backend Service (NestJS)
+  - type: web
+    name: trionex-backend
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    healthCheckPath: /api/v1/health
+    domains:
+      - trionex-backend.onrender.com
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: postgresql://postgres:password@localhost:5432/ai_solutions
+      - key: FRONTEND_URL
+        value: https://trionex.onrender.com
+      - key: CORS_ORIGIN
+        value: https://trionex.onrender.com
+
+  # PostgreSQL Database
+  - type: pserv
+    name: trionex-db
+    plan: free
+    databaseName: ai_solutions
+    user: postgres

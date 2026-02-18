@@ -6,15 +6,19 @@ import { UsersService } from "../users/users.service";
 import { User } from "../users/entities/user.entity";
 import * as bcrypt from "bcrypt";
 import * as nodemailer from "nodemailer";
+import { randomBytes } from "crypto";
 
 @Injectable()
 export class AuthService {
   private transporter: nodemailer.Transporter;
   // In-memory OTP storage (for demo - use database in production)
   private otpStorage: Map<string, { otp: string; expiresAt: Date }> = new Map();
-  
+
   // Security: Track failed login attempts
-  private failedAttempts: Map<string, { count: number; lockedUntil: Date | null }> = new Map();
+  private failedAttempts: Map<
+    string,
+    { count: number; lockedUntil: Date | null }
+  > = new Map();
   private readonly MAX_FAILED_ATTEMPTS = 5;
   private readonly LOCKOUT_DURATION = 15 * 60 * 1000; // 15 minutes
 
@@ -22,27 +26,42 @@ export class AuthService {
   private checkFailedAttempts(email: string): void {
     const attempts = this.failedAttempts.get(email);
     if (attempts && attempts.lockedUntil && new Date() < attempts.lockedUntil) {
-      const remainingMinutes = Math.ceil((attempts.lockedUntil.getTime() - Date.now()) / 60000);
-      throw new UnauthorizedException(`Account temporarily locked. Try again in ${remainingMinutes} minutes`);
+      const remainingMinutes = Math.ceil(
+        (attempts.lockedUntil.getTime() - Date.now()) / 60000,
+      );
+      throw new UnauthorizedException(
+        `Account temporarily locked. Try again in ${remainingMinutes} minutes`,
+      );
     }
     // Clear expired lockout
-    if (attempts && attempts.lockedUntil && new Date() >= attempts.lockedUntil) {
+    if (
+      attempts &&
+      attempts.lockedUntil &&
+      new Date() >= attempts.lockedUntil
+    ) {
       this.failedAttempts.delete(email);
     }
   }
 
   // Record failed login attempt
   private recordFailedAttempt(email: string): void {
-    const attempts = this.failedAttempts.get(email) || { count: 0, lockedUntil: null };
+    const attempts = this.failedAttempts.get(email) || {
+      count: 0,
+      lockedUntil: null,
+    };
     attempts.count += 1;
-    
+
     if (attempts.count >= this.MAX_FAILED_ATTEMPTS) {
       attempts.lockedUntil = new Date(Date.now() + this.LOCKOUT_DURATION);
-      console.log(`🔒 Account locked for ${this.LOCKOUT_DURATION / 60000} minutes due to failed attempts`);
+      console.log(
+        `🔒 Account locked for ${this.LOCKOUT_DURATION / 60000} minutes due to failed attempts`,
+      );
     }
-    
+
     this.failedAttempts.set(email, attempts);
-    console.log(`⚠️ Failed login attempt ${attempts.count}/${this.MAX_FAILED_ATTEMPTS} for ${email}`);
+    console.log(
+      `⚠️ Failed login attempt ${attempts.count}/${this.MAX_FAILED_ATTEMPTS} for ${email}`,
+    );
   }
 
   // Clear failed attempts on successful login
@@ -87,8 +106,10 @@ export class AuthService {
     }
 
     try {
-      const fromEmail = this.configService.get("EMAIL_FROM") || this.configService.get("EMAIL_USER");
-      
+      const fromEmail =
+        this.configService.get("EMAIL_FROM") ||
+        this.configService.get("EMAIL_USER");
+
       const mailOptions = {
         from: fromEmail,
         to: email,
@@ -130,7 +151,7 @@ export class AuthService {
   async requestLoginOTP(email: string): Promise<{ message: string }> {
     // Check for account lockout
     this.checkFailedAttempts(email);
-    
+
     const user = await this.usersService.findByEmail(email);
     if (!user) {
       // Don't reveal if user exists
@@ -139,22 +160,25 @@ export class AuthService {
 
     const otp = this.generateOTP();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
-    
+
     this.otpStorage.set(email, { otp, expiresAt });
-    
+
     await this.sendOTPEmail(email, otp);
-    
+
     return { message: "OTP sent to your email" };
   }
 
   // Verify OTP and login
-  async verifyOTPAndLogin(email: string, otp: string): Promise<{
+  async verifyOTPAndLogin(
+    email: string,
+    otp: string,
+  ): Promise<{
     accessToken: string;
     refreshToken: string;
     user: any;
   }> {
     const storedData = this.otpStorage.get(email);
-    
+
     if (!storedData) {
       throw new UnauthorizedException("Invalid or expired OTP");
     }
@@ -168,7 +192,7 @@ export class AuthService {
       this.recordFailedAttempt(email);
       throw new UnauthorizedException("Invalid OTP");
     }
-    
+
     // Clear failed attempts on successful OTP verification
     this.clearFailedAttempts(email);
 
@@ -193,23 +217,26 @@ export class AuthService {
 
     const otp = this.generateOTP();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
-    
+
     this.otpStorage.set(email, { otp, expiresAt });
-    
+
     await this.sendOTPEmail(email, otp);
-    
+
     return { message: "OTP resent to your email" };
   }
 
   // Validate user credentials and return tokens directly
-  async validateAndLogin(email: string, password: string): Promise<{
+  async validateAndLogin(
+    email: string,
+    password: string,
+  ): Promise<{
     accessToken: string;
     refreshToken: string;
     user: any;
   }> {
     // Check for account lockout first
     this.checkFailedAttempts(email);
-    
+
     const user = await this.usersService.findByEmail(email);
     if (!user) {
       throw new UnauthorizedException("Invalid credentials");
@@ -333,7 +360,8 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
 
     // Check if this is the owner email - make them admin automatically
-    const ownerEmail = this.configService.get("OWNER_EMAIL") || "debadattajena552@gmail.com";
+    const ownerEmail =
+      this.configService.get("OWNER_EMAIL") || "debadattajena552@gmail.com";
     const isOwner = userData.email.toLowerCase() === ownerEmail.toLowerCase();
 
     const user = await this.usersService.create({
@@ -357,5 +385,10 @@ export class AuthService {
       role: user.role,
       isActive: (user as any).isActive ?? true,
     };
+  }
+
+  // Generate CSRF token for session protection
+  generateCSRFToken(): string {
+    return randomBytes(32).toString('hex');
   }
 }

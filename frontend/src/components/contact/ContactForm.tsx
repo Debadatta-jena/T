@@ -44,7 +44,7 @@ export function ContactForm() {
       }
       
       // Send to backend API (NestJS running on port 3001)
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/contact`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(backendData)
