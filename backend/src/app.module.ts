@@ -54,16 +54,16 @@ import { SecurityMiddleware } from "./common/middleware/security.middleware";
       inject: [ConfigService],
     }),
 
-    // MySQL Database Configuration
+    // PostgreSQL Database Configuration
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: "mysql",
+        type: "postgres",
         host: configService.get("DB_HOST") || "localhost",
-        port: +(configService.get("DB_PORT") || 3306),
-        username: configService.get("DB_USERNAME") || "root",
+        port: +(configService.get("DB_PORT") || 5432),
+        username: configService.get("DB_USERNAME") || "postgres",
         password: configService.get("DB_PASSWORD") || "password",
-        database: configService.get("DB_DATABASE") || "my_web",
+        database: configService.get("DB_DATABASE") || "trionex_db",
         entities: [User, Project, Testimonial, Contact, Feedback],
         synchronize: configService.get("NODE_ENV") === "development",
         logging: configService.get("NODE_ENV") === "development",
