@@ -39,7 +39,7 @@ services:
       - key: SESSION_SECRET
         generateValue: true
       - key: DATABASE_URL
-        value: postgresql://postgres:password@localhost:5432/ai_solutions
+        value: postgresql://me:wmvRuDxrLXDawkAJ9gukVaJxfrUBTJhF@dpg-d6app52li9vc73e9c7ug-a/ai_solutions
       - key: FRONTEND_URL
         value: https://trionex.onrender.com
       - key: CORS_ORIGIN
