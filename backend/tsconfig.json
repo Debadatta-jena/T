@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "express-session"],
     "module": "commonjs",
     "removeComments": true,
     "emitDecoratorMetadata": true,
