@@ -4,7 +4,7 @@ const nextConfig = {
   // Enable swc minification for faster builds
   swcMinify: true,
   images: {
-    domains: ['localhost', 'trionex.tech', 'assets.trionex.tech', 'cdn.trionex.tech'],
+    domains: ['trionex.onrender.com', 'trionex.tech', 'assets.trionex.tech', 'cdn.trionex.tech'],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -18,8 +18,8 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', 'framer-motion', 'react-hook-form', '@radix-ui/react-icons'],
   },
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://api.trionex.tech',
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://trionex.tech',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://trionex-backend.onrender.com',
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://trionex.onrender.com',
   },
   async headers() {
     return [
@@ -56,7 +56,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.trionex.tech; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.trionex.tech wss://api.trionex.tech http://localhost:* https://localhost:*; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';`
+            value: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.trionex.tech; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://trionex-backend.onrender.com wss://trionex-backend.onrender.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';`
           }
         ],
       },
