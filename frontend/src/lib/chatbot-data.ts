@@ -1,8 +1,8 @@
 import { ServiceInfo, QuickReply } from '@/types/chatbot'
 
 export const CHATBOT_CONFIG = {
-  companyName: 'Trionex Technologies',
-  greeting: 'Hello 👋 Welcome to Trionex Technologies! I\'m here to help. What would you like to know?',
+  companyName: 'GLYVEXA',
+  greeting: 'Hello 👋 Welcome to GLYVEXA! I\'m here to help. What would you like to know?',
   typingDelay: 800,
   maxRetries: 3,
   allowFreeText: true, // Enable free text input

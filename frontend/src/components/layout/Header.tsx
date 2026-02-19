@@ -77,7 +77,7 @@ export function Header() {
           <Link href="/" className="flex items-center">
             <img 
               src="/images/small-logo.png" 
-              alt="Trionex Technologies" 
+              alt="GLYVEXA" 
               className="h-10 w-auto"
             />
           </Link>
@@ -162,7 +162,7 @@ export function Header() {
               <div className="flex items-center">
                 <img 
                   src="/images/small-logo.png" 
-                  alt="Trionex Technologies" 
+                  alt="GLYVEXA" 
                   className="h-8 w-auto"
                 />
               </div>

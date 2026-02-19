@@ -45,7 +45,7 @@ export function Footer() {
             <div className="flex items-center">
               <img 
                 src="/images/small-logo.png" 
-                alt="Trionex Technologies" 
+                alt="GLYVEXA" 
                 className="h-10 w-auto"
               />
             </div>

@@ -18,7 +18,7 @@ export function FloatingLogo() {
       <div className="bg-white rounded-lg shadow-md p-2 flex items-center">
         <img 
           src="/images/small-logo.png" 
-          alt="Trionex Technologies" 
+          alt="GLYVEXA" 
           className="h-8 w-auto"
         />
       </div>

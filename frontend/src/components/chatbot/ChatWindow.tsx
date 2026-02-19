@@ -428,7 +428,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ isOpen, onClose }) => {
               </button>
             </form>
             <p className="text-xs text-gray-500 text-center mt-2">
-              Powered by Trionex Technologies • Your data is secure
+              Powered by GLYVEXA • Your data is secure
             </p>
           </div>
         </motion.div>

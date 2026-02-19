@@ -2,9 +2,9 @@ export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Trionex Technologies",
-    "url": "https://trionex.tech",
-    "logo": "https://trionex.tech/images/logo.svg",
+    "name": "GLYVEXA",
+    "url": "https://glyvexa.com",
+    "logo": "https://glyvexa.com/images/logo.svg",
     "description": "Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Analysis Systems, Mobile Applications, and Cloud Services.",
     "contactPoint": {
       "@type": "ContactPoint",

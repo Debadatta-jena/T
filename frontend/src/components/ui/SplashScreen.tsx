@@ -68,7 +68,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ isVisible, onComplete }) =>
           >
             <img
               src="/images/splash-screen-640x1136.png"
-              alt="Trionex Technologies"
+              alt="GLYVEXA"
               className="w-64 h-64 md:w-80 md:h-80 object-contain"
               onError={(e) => {
                 console.error('Splash screen image failed to load:', e);
@@ -85,7 +85,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ isVisible, onComplete }) =>
             className="mt-6 text-center"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-white tracking-wider">
-              Trionex Technologies
+              GLYVEXA
             </h1>
             <motion.p
               initial={{ opacity: 0, width: 0 }}

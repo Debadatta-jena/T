@@ -42,11 +42,11 @@ export function Hero() {
             <div className="flex items-center justify-center gap-3 mb-8">
               <img 
                 src="/images/small-logo.png" 
-                alt="Trionex Technologies" 
+                alt="GLYVEXA" 
                 className="h-8 w-auto"
               />
               <span className="text-gray-500">|</span>
-              <span className="text-gray-600 font-medium">Trionex Technologies</span>
+              <span className="text-gray-600 font-medium">GLYVEXA</span>
             </div>
 
             <motion.div 

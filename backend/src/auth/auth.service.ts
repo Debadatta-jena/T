@@ -113,7 +113,7 @@ export class AuthService {
       const mailOptions = {
         from: fromEmail,
         to: email,
-        subject: "Your Login OTP - Trionex Technologies",
+        subject: "Your Login OTP - GLYVEXA",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #4F46E5;">Your Login Verification Code</h2>
@@ -125,7 +125,7 @@ export class AuthService {
             <p>If you didn't request this, please ignore this email.</p>
             <hr style="margin-top: 30px; border: none; border-top: 1px solid #e5e7eb;">
             <p style="color: #6b7280; font-size: 12px;">
-              Trionex Technologies<br>
+              GLYVEXA<br>
               AI & Software Solutions
             </p>
           </div>
