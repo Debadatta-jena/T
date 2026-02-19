@@ -203,7 +203,7 @@ const CONVERSATION_PATTERNS: ResponsePattern[] = [
 
 // Company info for accurate responses
 const COMPANY_INFO = {
-  name: 'Trionex Technologies',
+  name: 'GLYVEXA',
   founder: 'Debadatta Jena',
   email: 'debadattajena552@gmail.com',
   phone: '+91 9692292496',

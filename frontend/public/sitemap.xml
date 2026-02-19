@@ -4,7 +4,7 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://trionex.tech/</loc>
+    <loc>https://glyvexa.com/</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -12,7 +12,7 @@
   
   <!-- About Page -->
   <url>
-    <loc>https://trionex.tech/about</loc>
+    <loc>https://glyvexa.com/about</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -20,49 +20,49 @@
   
   <!-- Services Pages -->
   <url>
-    <loc>https://trionex.tech/services</loc>
+    <loc>https://glyvexa.com/services</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/services/web-development</loc>
+    <loc>https://glyvexa.com/services/web-development</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/services/ai-chatbots</loc>
+    <loc>https://glyvexa.com/services/ai-chatbots</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/services/ai-agents</loc>
+    <loc>https://glyvexa.com/services/ai-agents</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/services/voice-bots</loc>
+    <loc>https://glyvexa.com/services/voice-bots</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/services/mobile-apps</loc>
+    <loc>https://glyvexa.com/services/mobile-apps</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/services/academic-projects</loc>
+    <loc>https://glyvexa.com/services/academic-projects</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -70,7 +70,7 @@
   
   <!-- Industries Page -->
   <url>
-    <loc>https://trionex.tech/industries</loc>
+    <loc>https://glyvexa.com/industries</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -78,14 +78,14 @@
   
   <!-- Projects / Portfolio Page -->
   <url>
-    <loc>https://trionex.tech/projects</loc>
+    <loc>https://glyvexa.com/projects</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/portfolio</loc>
+    <loc>https://glyvexa.com/portfolio</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -93,7 +93,7 @@
   
   <!-- Case Studies -->
   <url>
-    <loc>https://trionex.tech/case-studies</loc>
+    <loc>https://glyvexa.com/case-studies</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -101,7 +101,7 @@
   
   <!-- Testimonials Page -->
   <url>
-    <loc>https://trionex.tech/testimonials</loc>
+    <loc>https://glyvexa.com/testimonials</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -109,7 +109,7 @@
   
   <!-- Pricing Page -->
   <url>
-    <loc>https://trionex.tech/pricing</loc>
+    <loc>https://glyvexa.com/pricing</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -117,7 +117,7 @@
   
   <!-- Contact Page -->
   <url>
-    <loc>https://trionex.tech/contact</loc>
+    <loc>https://glyvexa.com/contact</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -125,21 +125,21 @@
   
   <!-- Legal Pages -->
   <url>
-    <loc>https://trionex.tech/privacy</loc>
+    <loc>https://glyvexa.com/privacy</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/terms</loc>
+    <loc>https://glyvexa.com/terms</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
-    <loc>https://trionex.tech/cookie-policy</loc>
+    <loc>https://glyvexa.com/cookie-policy</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -147,7 +147,7 @@
   
   <!-- Dashboard (noindex recommended) -->
   <url>
-    <loc>https://trionex.tech/dashboard</loc>
+    <loc>https://glyvexa.com/dashboard</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -155,7 +155,7 @@
   
   <!-- Admin (noindex recommended) -->
   <url>
-    <loc>https://trionex.tech/admin</loc>
+    <loc>https://glyvexa.com/admin</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.1</priority>

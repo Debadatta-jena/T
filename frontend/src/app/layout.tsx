@@ -11,18 +11,18 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const dynamic = 'force-dynamic';
 
-const websiteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://trionex.tech';
+const websiteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://glyvexa.com';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Trionex Technologies - Professional AI & Software Solutions',
-    template: '%s | Trionex Technologies'
+    default: 'GLYVEXA - Professional AI & Software Solutions',
+    template: '%s | GLYVEXA'
   },
   description: 'Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Analysis Systems, Mobile Applications, and Cloud Services on AWS.',
-  keywords: ['Trionex Technologies', 'AI Solutions', 'Software Development', 'Web Development', 'AI Chatbots', 'Mobile Apps', 'AWS', 'Cloud Services', 'AI Agents', 'Voice Bots', 'Academic Projects'],
-  authors: [{ name: 'Trionex Technologies' }],
-  creator: 'Trionex Technologies',
-  publisher: 'Trionex Technologies',
+  keywords: ['GLYVEXA', 'AI Solutions', 'Software Development', 'Web Development', 'AI Chatbots', 'Mobile Apps', 'AWS', 'Cloud Services', 'AI Agents', 'Voice Bots', 'Academic Projects'],
+  authors: [{ name: 'GLYVEXA' }],
+  creator: 'GLYVEXA',
+  publisher: 'GLYVEXA',
   metadataBase: new URL(websiteUrl),
   alternates: {
     canonical: '/',
@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Trionex Technologies - Professional AI & Software Solutions',
+    title: 'GLYVEXA - Professional AI & Software Solutions',
     description: 'Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Mobile Applications, and Cloud Services.',
     url: websiteUrl,
-    siteName: 'Trionex Technologies',
+    siteName: 'GLYVEXA',
     locale: 'en_US',
     type: 'website',
     alternateLocale: 'en_US',
@@ -43,15 +43,15 @@ export const metadata: Metadata = {
         url: `${websiteUrl}/images/logo.svg`,
         width: 1200,
         height: 630,
-        alt: 'Trionex Technologies - AI & Software Solutions',
+        alt: 'GLYVEXA - AI & Software Solutions',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trionex Technologies - Professional AI & Software Solutions',
+    title: 'GLYVEXA - Professional AI & Software Solutions',
     description: 'Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Mobile Applications.',
-    creator: '@trionextech',
+    creator: '@glyvexa',
     images: [`${websiteUrl}/images/logo.svg`],
   },
   robots: {
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Trionex Technologies',
+  name: 'GLYVEXA',
   url: websiteUrl,
   logo: `${websiteUrl}/images/logo.svg`,
   description: 'Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Mobile Applications, and Cloud Services.',
@@ -122,7 +122,7 @@ const jsonLd = {
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Trionex Technologies',
+  name: 'GLYVEXA',
   url: websiteUrl,
   description: 'Professional AI & Software Solutions',
   potentialAction: {
@@ -149,20 +149,20 @@ export default function RootLayout({
         <link rel="canonical" href={websiteUrl} />
         
         {/* Primary Meta Tags */}
-        <meta name="title" content="Trionex Technologies - Professional AI & Software Solutions" />
+        <meta name="title" content="GLYVEXA - Professional AI & Software Solutions" />
         <meta name="description" content="Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Mobile Applications, and Cloud Services on AWS." />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={websiteUrl} />
-        <meta property="og:title" content="Trionex Technologies - Professional AI & Software Solutions" />
+        <meta property="og:title" content="GLYVEXA - Professional AI & Software Solutions" />
         <meta property="og:description" content="Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Mobile Applications, and Cloud Services." />
         <meta property="og:image" content={`${websiteUrl}/images/logo.svg`} />
         
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={websiteUrl} />
-        <meta property="twitter:title" content="Trionex Technologies - Professional AI & Software Solutions" />
+        <meta property="twitter:title" content="GLYVEXA - Professional AI & Software Solutions" />
         <meta property="twitter:description" content="Professional AI & Software Solutions company offering Website Development, AI Chatbots, AI Agents, Voice Bots, Mobile Applications." />
         <meta property="twitter:image" content={`${websiteUrl}/images/logo.svg`} />
         
