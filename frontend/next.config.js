@@ -13,7 +13,7 @@ const nextConfig = {
   },
   // Enable experimental optimizations
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true, // Disabled - requires critters dependency
     // Optimize package imports
     optimizePackageImports: ['lucide-react', 'framer-motion', 'react-hook-form', '@radix-ui/react-icons'],
   },
