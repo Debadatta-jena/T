@@ -31,8 +31,7 @@ export class User {
 
   @ApiProperty({ description: "User role", enum: UserRole })
   @Column({
-    type: "enum",
-    enum: UserRole,
+    type: "varchar",
     default: UserRole.CLIENT,
   })
   role: UserRole;
