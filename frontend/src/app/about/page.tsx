@@ -4,10 +4,10 @@ import { Footer } from '@/components/layout/Footer'
 import { StructuredData } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
-  title: 'About Us - AI Solutions Company',
-  description: 'Learn about AI Solutions Company - our mission, team, and commitment to delivering cutting-edge AI and software solutions for businesses worldwide.',
+  title: 'About Us - GLYVEXA',
+  description: 'Learn about GLYVEXA - our mission, team, and commitment to delivering cutting-edge AI and software solutions for businesses worldwide.',
   openGraph: {
-    title: 'About AI Solutions Company',
+    title: 'About GLYVEXA',
     description: 'Our mission is to transform businesses through innovative AI and software solutions.',
     url: '/about',
   },
@@ -27,10 +27,10 @@ export default function AboutPage() {
             <div className="container">
               <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  About <span className="text-blue-600">AI Solutions</span>
+                  About <span className="text-blue-600">GLYVEXA</span>
                 </h1>
                 <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                  We are a team of passionate developers and AI experts dedicated to transforming businesses 
+                  We are GLYVEXA, a team of passionate developers and AI experts dedicated to transforming businesses 
                   through cutting-edge technology solutions.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
