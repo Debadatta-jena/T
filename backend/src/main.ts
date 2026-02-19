@@ -7,6 +7,9 @@ import { WINSTON_MODULE_NEST_PROVIDER } from "nest-winston";
 import helmet from "helmet";
 import { SecurityMiddleware } from "./common/middleware/security.middleware";
 
+// Force port binding
+process.env.PORT = process.env.PORT || '10000';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
 
