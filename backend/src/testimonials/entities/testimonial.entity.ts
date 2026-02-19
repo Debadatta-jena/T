@@ -85,10 +85,10 @@ export class Testimonial {
   approvedBy?: User;
 
   @ApiProperty({ description: "Creation timestamp" })
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn({ type: "datetime" })
   createdAt: Date;
 
   @ApiProperty({ description: "Last update timestamp" })
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn({ type: "datetime" })
   updatedAt: Date;
 }

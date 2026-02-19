@@ -29,9 +29,9 @@ export class Feedback {
   @Column({ default: false })
   isRead: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "datetime" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "datetime" })
   updatedAt: Date;
 }
