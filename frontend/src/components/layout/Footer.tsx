@@ -2,6 +2,9 @@
 
 import Link from 'next/link';
 import { Facebook, Twitter, Linkedin, Github, Mail, Phone, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const navigation = {
   company: [
@@ -35,6 +38,15 @@ const contactInfo = {
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      alert('Thank you for subscribing! We will keep you updated with our latest news.');
+      setEmail('');
+    }
+  };
 
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
@@ -126,6 +138,27 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        {/* Newsletter Section */}
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+          <div className="max-w-md mx-auto text-center">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Stay Updated</h4>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">Subscribe to our newsletter for the latest AI and software insights.</p>
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600"
+              />
+              <Button type="submit" className="px-6">
+                Subscribe
+              </Button>
+            </form>
           </div>
         </div>
 
