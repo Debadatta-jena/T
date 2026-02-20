@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Analytics Dashboard - Trionox Technologies',
+  title: 'Analytics Dashboard - GLYVEXA',
   description: 'Comprehensive analytics dashboard for monitoring user behavior, performance metrics, and business intelligence.',
 };
 
@@ -163,10 +163,11 @@ function AnalyticsDashboard() {
 
       {/* Analytics Tabs */}
       <Tabs defaultValue="traffic" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="traffic">Traffic</TabsTrigger>
           <TabsTrigger value="audience">Audience</TabsTrigger>
           <TabsTrigger value="behavior">Behavior</TabsTrigger>
+          <TabsTrigger value="business">Business</TabsTrigger>
           <TabsTrigger value="ai-insights">AI Insights</TabsTrigger>
         </TabsList>
 
@@ -354,6 +355,168 @@ function AnalyticsDashboard() {
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        <TabsContent value="business" className="space-y-6">
+          {/* Business KPIs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Revenue</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">$247,839</p>
+                  </div>
+                  <div className="p-3 bg-green-100 dark:bg-green-900 rounded-full">
+                    <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center">
+                  <span className="text-sm font-medium text-green-600">+12.5%</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">vs last month</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Net Profit</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">$89,291</p>
+                  </div>
+                  <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
+                    <DollarSign className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center">
+                  <span className="text-sm font-medium text-green-600">+8.2%</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">vs last month</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Expenses</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">$158,548</p>
+                  </div>
+                  <div className="p-3 bg-red-100 dark:bg-red-900 rounded-full">
+                    <TrendingDown className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center">
+                  <span className="text-sm font-medium text-red-600">-5.3%</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">vs last month</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Projects</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">15</p>
+                  </div>
+                  <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-full">
+                    <BarChart3 className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center">
+                  <span className="text-sm font-medium text-green-600">+3</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">vs last month</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Financial Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Revenue vs Expenses</CardTitle>
+                <CardDescription>Monthly financial performance</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <BarChart3 className="h-12 w-12 text-gray-400" />
+                  <span className="ml-2 text-gray-500">Financial Chart Placeholder</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Profit Margins</CardTitle>
+                <CardDescription>Profit percentage over time</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <PieChart className="h-12 w-12 text-gray-400" />
+                  <span className="ml-2 text-gray-500">Profit Chart Placeholder</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Accounting Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Accounting & Financial Management</CardTitle>
+              <CardDescription>AI-powered accounting features for business management</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-3">Quick Actions</h4>
+                  <div className="space-y-2">
+                    <Button className="w-full justify-start" variant="outline">
+                      <BarChart3 className="h-4 w-4 mr-2" />
+                      Generate Financial Report
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <TrendingUp className="h-4 w-4 mr-2" />
+                      Tax Calculation Assistant
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Activity className="h-4 w-4 mr-2" />
+                      Budget Analysis
+                    </Button>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-3">Data Entry</h4>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <Label htmlFor="revenue-input" className="text-xs">Revenue</Label>
+                        <Input id="revenue-input" type="number" placeholder="Amount" className="h-8" />
+                      </div>
+                      <div>
+                        <Label htmlFor="expense-input" className="text-xs">Expense</Label>
+                        <Input id="expense-input" type="number" placeholder="Amount" className="h-8" />
+                      </div>
+                    </div>
+                    <Select>
+                      <SelectTrigger className="h-8">
+                        <SelectValue placeholder="Category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="marketing">Marketing</SelectItem>
+                        <SelectItem value="operations">Operations</SelectItem>
+                        <SelectItem value="development">Development</SelectItem>
+                        <SelectItem value="sales">Sales</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button size="sm" className="w-full">Add Entry</Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="ai-insights" className="space-y-6">
