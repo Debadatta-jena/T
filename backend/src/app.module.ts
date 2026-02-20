@@ -54,18 +54,17 @@ import { SecurityMiddleware } from "./common/middleware/security.middleware";
       inject: [ConfigService],
     }),
 
-    // PostgreSQL Database Configuration
+    // SQLite Database Configuration
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: "postgres",
-        url: configService.get("DATABASE_URL"),
+        type: "sqlite",
+        database: "database.sqlite",
         entities: [User, Project, Testimonial, Contact, Feedback],
-        synchronize: configService.get("NODE_ENV") === "development",
+        synchronize: true,
         logging: configService.get("NODE_ENV") === "development",
         migrations: ["dist/migrations/*.js"],
         migrationsRun: true,
-        ssl: configService.get("NODE_ENV") === "production" ? { rejectUnauthorized: false } : false,
       }),
       inject: [ConfigService],
     }),
