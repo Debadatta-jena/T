@@ -61,7 +61,7 @@ import { SecurityMiddleware } from "./common/middleware/security.middleware";
         type: "sqlite",
         database: "database.sqlite",
         entities: [User, Project, Testimonial, Contact, Feedback],
-        synchronize: configService.get("NODE_ENV") === "development",
+        synchronize: true,
         logging: configService.get("NODE_ENV") === "development",
         migrations: ["dist/migrations/*.js"],
         migrationsRun: true,
